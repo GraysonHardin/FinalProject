@@ -1,5 +1,6 @@
 from main.csv_manager.load_data import get_csv_data
 from main.csv_manager.vehicle_builder import VehicleBuilder
+from tkinter import messagebox
 
 
 def search(search_by_make, search_by_model, search_by_year):
@@ -21,7 +22,10 @@ def _filter_rows(make, model, year):
 
 def _handle_invalid_search_terms(search_by_make, search_by_model, search_by_year):
     if not search_by_make or not search_by_model or not search_by_year:
-        raise ValueError('Please provide make, model, and year.')
+       #raise ValueError('Please provide make, model, and year.')
+        messagebox.showerror("Error", "Error message")
+
+
 
 
 def _build_vehicles(filtered_rows):
