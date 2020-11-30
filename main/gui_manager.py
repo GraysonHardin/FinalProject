@@ -1,13 +1,30 @@
 import tkinter
 import tkinter as tk
+
+from main.database.create_rows import create_vehicle
 from main.csv_manager.catalog import search
 from main.csv_manager.vehicle_builder import VehicleBuilder
 from tkinter import messagebox
 from tkinter import *
 
+from main.database.connect_to_db import create_connection
+from main.database.create_tables import create_tables
+from main.database.query_database import select_all_vehicles
+
 m = tkinter.Tk()
 m.geometry('1920x1080')
 m.title('Catalog')
+
+
+def handle_database_creation():
+    create_connection("vehicle.db")
+    create_tables("vehicle.db")
+    # remove this line of code
+    add_vehicle()
+    # with conn:
+    #     vehicle = ('Ford', 'Mustang', '2016')
+    #     create_vehicle(conn, vehicle)
+    #     print(select_all_vehicles(conn))
 
 
 display_make_input_message = Label(text='Enter vehicle make')
@@ -42,6 +59,21 @@ def search_catalog():
         year_input.delete(0, tk.END)
 
 
+def add_vehicle():
+    conn = create_connection("vehicle.db")
+
+    with conn:
+        # add
+        # mileage
+        # price
+        # color
+        # status i.e Forsale
+        # paid_for_price: 20000
+        # sold_for: 30000
+        vehicle = ('Ford', 'Mustang', '2016')
+        create_vehicle(conn, vehicle)
+        print(select_all_vehicles(conn))
+
 def draw_table(rows):
     for i in range(len(rows)):
         column = 3
@@ -57,7 +89,10 @@ def draw_table(rows):
 create_search_button = tkinter.Button(m, text='Search Catalog', width=25, command=search_catalog)
 create_search_button.grid(row=0, column=2)
 
+# create a add vehicle to db button... command should call add_vehicle()
+
 exit_button = tkinter.Button(m, text='Exit', width=25, command=m.destroy)
 exit_button.grid(row=10, column=2)
 
+handle_database_creation()
 m.mainloop()
