@@ -31,12 +31,15 @@ year_input.grid(row=3, column=2)
 
 
 def search_catalog():
-    search_results = search(make_input.get(), model_input.get(), year_input.get())
-    print(search_results)
-    draw_table(search_results)
-    model_input.delete(0, tk.END)
-    make_input.delete(0, tk.END)
-    year_input.delete(0, tk.END)
+    if make_input.get() and model_input.get() and year_input.get():
+        search_results = search(make_input.get(), model_input.get(), year_input.get())
+        print(search_results)
+        draw_table(search_results)
+    else:
+        messagebox.showerror("Error, please provide make, model, and year ")
+        model_input.delete(0, tk.END)
+        make_input.delete(0, tk.END)
+        year_input.delete(0, tk.END)
 
 
 def draw_table(rows):
