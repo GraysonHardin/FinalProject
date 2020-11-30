@@ -1,6 +1,6 @@
 import tkinter
 import tkinter as tk
-from main.csv_manager.catalog import search, _handle_invalid_search_terms
+from main.csv_manager.catalog import search
 from main.csv_manager.vehicle_builder import VehicleBuilder
 from tkinter import messagebox
 from tkinter import *
@@ -9,27 +9,25 @@ m = tkinter.Tk()
 m.geometry('1920x1080')
 m.title('Catalog')
 
-# 1. Add error message in pop-up window when there is invalid search terms
 
-
-catalog_searcher = VehicleBuilder
-
-display_make_input_message = Label(text='Enter vehicle make ')
+display_make_input_message = Label(text='Enter vehicle make')
 display_model_input_message = Label(text='Enter vehicle model')
 display_year_input_message = Label(text='Enter vehicle year')
 
-display_make_input_message.place(x=200, y=25)
-display_model_input_message.place(x=200, y=45)
-display_year_input_message.place(x=200, y=65)
+display_make_input_message.grid(row=1, column=1)
+display_model_input_message.grid(row=2, column=1)
+display_year_input_message.grid(row=3, column=1)
+
+catalog_searcher = VehicleBuilder
 
 make_input = tk.Entry(m, width=25)
-make_input.grid(row=1)
+make_input.grid(row=1, column=2)
 
 model_input = tk.Entry(m, width=25)
-model_input.grid(row=2)
+model_input.grid(row=2, column=2)
 
 year_input = tk.Entry(m, width=25)
-year_input.grid(row=3)
+year_input.grid(row=3, column=2)
 
 
 def search_catalog():
@@ -43,7 +41,7 @@ def search_catalog():
 
 def draw_table(rows):
     for i in range(len(rows)):
-        column = 1
+        column = 3
         for key in rows[i]:
             e = tkinter.Entry(m, width=20, fg='black', font=('Arial', 12, 'bold'))
 
@@ -53,16 +51,10 @@ def draw_table(rows):
             e['state'] = tkinter.DISABLED
 
 
-def handle_error_messages():
-    raise_error = messagebox.showerror("Error", "Error message")
-    if _handle_invalid_search_terms(search_by_make=False, search_by_model=False, search_by_year=False):
-        return raise_error
-
-
 create_search_button = tkinter.Button(m, text='Search Catalog', width=25, command=search_catalog)
-create_search_button.grid(row=0)
+create_search_button.grid(row=0, column=2)
 
 exit_button = tkinter.Button(m, text='Exit', width=25, command=m.destroy)
-exit_button.grid(row=10)
+exit_button.grid(row=10, column=2)
 
 m.mainloop()

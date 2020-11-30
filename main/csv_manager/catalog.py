@@ -22,7 +22,7 @@ def _filter_rows(make, model, year):
 
 def _handle_invalid_search_terms(search_by_make, search_by_model, search_by_year):
     if not search_by_make or not search_by_model or not search_by_year:
-        messagebox.showerror("Error", "Error message")
+        #  messagebox.showerror("Error", "Error message")
         raise ValueError('Please provide make, model, and year.')
 
 
