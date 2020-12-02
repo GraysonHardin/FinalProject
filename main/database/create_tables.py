@@ -21,7 +21,11 @@ def create_tables(database):
                                         id integer PRIMARY KEY,
                                         make text NOT NULL,
                                         model text NOT NULL,
-                                        year text NOT NULL
+                                        year text NOT NULL,
+                                        mileage text NOT NULL,
+                                        price text NOT NULL,
+                                        color text NOT NULL
+
                                     ); """
 
     # create a database connection

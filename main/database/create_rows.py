@@ -4,8 +4,8 @@ def create_vehicle(conn, vehicle):
     :param vehicle:
     :return: vehicle id
     """
-    sql = ''' INSERT INTO vehicle(make,model,year)
-              VALUES(?,?,?) '''
+    sql = ''' INSERT INTO vehicle(make,model,year,mileage,price,color)
+              VALUES(?,?,?,?,?,?) '''
     cur = conn.cursor()  # cursor object
 
     cur.execute(sql, vehicle)
