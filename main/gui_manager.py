@@ -5,50 +5,24 @@ from main.database.create_rows import create_vehicle
 from main.csv_manager.catalog import search
 from main.csv_manager.vehicle_builder import VehicleBuilder
 from tkinter import messagebox
-from tkinter import *
 
 from main.database.connect_to_db import create_connection
 from main.database.create_tables import create_tables
 from main.database.query_database import select_all_vehicles
+from main.labels import draw_labels
 
 m = tkinter.Tk()
 m.geometry('1920x1080')
 m.title('Catalog')
+draw_labels(m)
 
 
 def handle_database_creation():
     create_connection("vehicle.db")
     create_tables("vehicle.db")
-    # remove this line of code
-    # with conn:
-    #     vehicle = ('Ford', 'Mustang', '2016')
-    #     create_vehicle(conn, vehicle)
-    #     print(select_all_vehicles(conn))
 
 
 catalog_searcher = VehicleBuilder
-
-display_make_input_message = Label(text='Enter vehicle make')
-display_model_input_message = Label(text='Enter vehicle model')
-display_year_input_message = Label(text='Enter vehicle year')
-
-display_make_input_message.grid(row=1, column=1)
-display_model_input_message.grid(row=2, column=1)
-display_year_input_message.grid(row=3, column=1)
-
-add_vehicle_make_display_message = Label(text='Enter vehicle make')
-add_vehicle_model_display_message = Label(text='Enter vehicle model')
-add_vehicle_year_display_message = Label(text='Enter vehicle year')
-add_vehicle_mileage_display_message = Label(text='Enter vehicle mileage')
-add_vehicle_price_display_message = Label(text='Enter vehicle price')
-add_vehicle_color_display_message = Label(text='Enter vehicle color')
-
-add_vehicle_make_display_message.grid(row=5, column=1)
-add_vehicle_model_display_message.grid(row=6, column=1)
-add_vehicle_year_display_message.grid(row=7, column=1)
-add_vehicle_mileage_display_message.grid(row=8, column=1)
-add_vehicle_price_display_message.grid(row=9, column=1)
-add_vehicle_color_display_message.grid(row=10, column=1)
 
 # Lines 42-49 are for search_catalog values
 make_input = tk.Entry(m, width=25)
@@ -79,6 +53,12 @@ add_vehicle_price_input.grid(row=9, column=2)
 add_vehicle_color_input = tk.Entry(m, width=25)
 add_vehicle_color_input.grid(row=10, column=2)
 
+add_vehicle_paid_for_price = tk.Entry(m, width=25)
+add_vehicle_paid_for_price.grid(row=11, column=2)
+
+add_vehicle_sold_for_price = tk.Entry(m, width=25)
+add_vehicle_sold_for_price.grid(row=12, column=2)
+
 
 def search_catalog():
     if make_input.get() and model_input.get() and year_input.get():
@@ -97,10 +77,9 @@ def add_vehicle():
 
     with conn:
         vehicle = (add_vehicle_color_input.get(), add_vehicle_model_input.get(), add_vehicle_year_input.get(),
-                   add_vehicle_mileage_input.get(), add_vehicle_price_input.get(), add_vehicle_color_input.get())
+                   add_vehicle_mileage_input.get(), add_vehicle_price_input.get(), add_vehicle_color_input.get(),
+                   add_vehicle_paid_for_price.get(), add_vehicle_sold_for_price.get())
 
-        # paid_for_price: 20000
-        # sold_for: 30000
 
         try:
             create_vehicle(conn, vehicle)
@@ -114,6 +93,8 @@ def add_vehicle():
         add_vehicle_mileage_input.delete(0, tk.END)
         add_vehicle_price_input.delete(0, tk.END)
         add_vehicle_color_input.delete(0, tk.END)
+        add_vehicle_paid_for_price.delete(0, tk.END)
+        add_vehicle_sold_for_price.delete(0, tk.END)
 
         print(select_all_vehicles(conn))
 
