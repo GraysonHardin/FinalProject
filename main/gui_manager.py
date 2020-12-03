@@ -10,6 +10,8 @@ from main.database.connect_to_db import create_connection
 from main.database.create_tables import create_tables
 from main.database.query_database import select_all_vehicles
 from main.labels import draw_labels
+from main.view_table import open_table_window
+from functools import partial
 
 m = tkinter.Tk()
 m.geometry('1920x1080')
@@ -66,8 +68,8 @@ add_vehicle_id.grid(row=13, column=2)
 def search_catalog():
     if make_input.get() and model_input.get() and year_input.get():
         search_results = search(make_input.get(), model_input.get(), year_input.get())
-        print(search_results)
-        draw_table(search_results)
+
+        open_table_window(m, search_results)
     else:
         messagebox.showerror("Error, please provide make, model, and year ")
     model_input.delete(0, tk.END)
@@ -110,25 +112,14 @@ def add_vehicle():
         add_vehicle_sold_for_price.delete(0, tk.END)
         add_vehicle_id.delete(0, tk.END)
 
-        print(select_all_vehicles(conn))
 
+def view_inventory():
+    conn = create_connection("vehicle.db")
 
-def draw_table(rows):
-    for i in range(len(rows)):
-        column = 3
-        for key in rows[i]:
-            e = tkinter.Entry(m, width=20, fg='black', font=('Arial', 12, 'bold'))
-
-            e.grid(row=i, column=column)
-            e.insert(tkinter.END, rows[i][key])
-            column += 1
-            e['state'] = tkinter.DISABLED
-
-
-def open_new_window():
-    new_window = tk.Toplevel(m)
-    new_window.title("New Window")
-    new_window.geometry("200x200")
+    with conn:
+        rows = select_all_vehicles(conn)
+        print(rows)
+        open_table_window(m, rows)
 
 
 create_search_button = tkinter.Button(m, text='Search Catalog', width=25, command=search_catalog)
@@ -136,7 +127,8 @@ create_search_button.grid(row=0, column=2)
 
 create_add_vehicle_button = tkinter.Button(m, text='Add Vehicle to Database', width=25, command=add_vehicle)
 create_add_vehicle_button.grid(row=4, column=2)
-open_window = tkinter.Button(m, text='New Window', width=25, command=open_new_window)
+open_window = tkinter.Button(m, text='View Vehicle Inventory', width=25, command=view_inventory)
+# open_window['command'] = partial(open_table_window, m, rows)
 open_window.grid(row=31, column=2)
 
 exit_button = tkinter.Button(m, text='Exit', width=25, command=m.destroy)
