@@ -20,7 +20,6 @@ def handle_database_creation():
     create_connection("vehicle.db")
     create_tables("vehicle.db")
     # remove this line of code
-    add_vehicle()
     # with conn:
     #     vehicle = ('Ford', 'Mustang', '2016')
     #     create_vehicle(conn, vehicle)
@@ -116,7 +115,6 @@ def add_vehicle():
         add_vehicle_price_input.delete(0, tk.END)
         add_vehicle_color_input.delete(0, tk.END)
 
-        create_vehicle(conn, vehicle)
         print(select_all_vehicles(conn))
 
 
