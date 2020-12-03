@@ -1,7 +1,7 @@
 import tkinter
 import tkinter as tk
 
-from main.database.create_rows import create_vehicle
+from main.database.create_rows import create_vehicle, update_vehicle
 from main.csv_manager.catalog import search
 from main.csv_manager.vehicle_builder import VehicleBuilder
 from tkinter import messagebox
@@ -59,6 +59,9 @@ add_vehicle_paid_for_price.grid(row=11, column=2)
 add_vehicle_sold_for_price = tk.Entry(m, width=25)
 add_vehicle_sold_for_price.grid(row=12, column=2)
 
+add_vehicle_id = tk.Entry(m, width=25)
+add_vehicle_id.grid(row=13, column=2)
+
 
 def search_catalog():
     if make_input.get() and model_input.get() and year_input.get():
@@ -76,13 +79,23 @@ def add_vehicle():
     conn = create_connection("vehicle.db")
 
     with conn:
-        vehicle = (add_vehicle_color_input.get(), add_vehicle_model_input.get(), add_vehicle_year_input.get(),
-                   add_vehicle_mileage_input.get(), add_vehicle_price_input.get(), add_vehicle_color_input.get(),
-                   add_vehicle_paid_for_price.get(), add_vehicle_sold_for_price.get())
-
+        vehicle = (
+            add_vehicle_color_input.get(),
+            add_vehicle_model_input.get(),
+            add_vehicle_year_input.get(),
+            add_vehicle_mileage_input.get(),
+            add_vehicle_price_input.get(),
+            add_vehicle_color_input.get(),
+            add_vehicle_paid_for_price.get(),
+            add_vehicle_sold_for_price.get()
+        )
 
         try:
-            create_vehicle(conn, vehicle)
+            if add_vehicle_id.get():
+                update_vehicle_tuple = (add_vehicle_sold_for_price.get(), add_vehicle_id.get())
+                update_vehicle(conn, update_vehicle_tuple)
+            else:
+                create_vehicle(conn, vehicle)
 
         except:
             raise Exception('Vehicle database error')
@@ -95,6 +108,7 @@ def add_vehicle():
         add_vehicle_color_input.delete(0, tk.END)
         add_vehicle_paid_for_price.delete(0, tk.END)
         add_vehicle_sold_for_price.delete(0, tk.END)
+        add_vehicle_id.delete(0, tk.END)
 
         print(select_all_vehicles(conn))
 
