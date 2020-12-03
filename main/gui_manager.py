@@ -125,11 +125,19 @@ def draw_table(rows):
             e['state'] = tkinter.DISABLED
 
 
+def open_new_window():
+    new_window = tk.Toplevel(m)
+    new_window.title("New Window")
+    new_window.geometry("200x200")
+
+
 create_search_button = tkinter.Button(m, text='Search Catalog', width=25, command=search_catalog)
 create_search_button.grid(row=0, column=2)
 
 create_add_vehicle_button = tkinter.Button(m, text='Add Vehicle to Database', width=25, command=add_vehicle)
 create_add_vehicle_button.grid(row=4, column=2)
+open_window = tkinter.Button(m, text='New Window', width=25, command=open_new_window)
+open_window.grid(row=31, column=2)
 
 exit_button = tkinter.Button(m, text='Exit', width=25, command=m.destroy)
 exit_button.grid(row=30, column=2)
