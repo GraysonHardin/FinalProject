@@ -18,6 +18,7 @@ def draw_labels(m):
     add_vehicle_color_display_message = Label(text='Enter vehicle color')
     add_vehicle_paid_for_price_message = Label(text='Enter vehicle purchase price')
     add_vehicle_sold_for_price_message = Label(text='Enter vehicle sold price')
+    add_vehicle_id_message = Label(text='Enter Vehicle ID')
 
     add_vehicle_make_display_message.grid(row=5, column=1)
     add_vehicle_model_display_message.grid(row=6, column=1)
@@ -27,3 +28,4 @@ def draw_labels(m):
     add_vehicle_color_display_message.grid(row=10, column=1)
     add_vehicle_paid_for_price_message.grid(row=11, column=1)
     add_vehicle_sold_for_price_message.grid(row=12, column=1)
+    add_vehicle_id_message.grid(row=13, column=1)

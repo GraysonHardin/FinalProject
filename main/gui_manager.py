@@ -1,6 +1,7 @@
 import tkinter
 import tkinter as tk
 
+from main.builders.purchased_vehicle_builder import PurchasedVehicleBuilder
 from main.database.create_rows import create_vehicle, update_vehicle
 from main.csv_manager.catalog import search
 from main.csv_manager.vehicle_builder import VehicleBuilder
@@ -10,8 +11,8 @@ from main.database.connect_to_db import create_connection
 from main.database.create_tables import create_tables
 from main.database.query_database import select_all_vehicles
 from main.labels import draw_labels
-from main.view_table import open_table_window
-from functools import partial
+from main.view_catalog_table import open_catalog_table
+from main.view_inventory_table import open_inventory_table
 
 m = tkinter.Tk()
 m.geometry('1920x1080')
@@ -69,7 +70,7 @@ def search_catalog():
     if make_input.get() and model_input.get() and year_input.get():
         search_results = search(make_input.get(), model_input.get(), year_input.get())
 
-        open_table_window(m, search_results)
+        open_catalog_table(m, search_results)
     else:
         messagebox.showerror("Error, please provide make, model, and year ")
     model_input.delete(0, tk.END)
@@ -82,7 +83,7 @@ def add_vehicle():
 
     with conn:
         vehicle = (
-            add_vehicle_color_input.get(),
+            add_vehicle_make_input.get(),
             add_vehicle_model_input.get(),
             add_vehicle_year_input.get(),
             add_vehicle_mileage_input.get(),
@@ -113,22 +114,30 @@ def add_vehicle():
         add_vehicle_id.delete(0, tk.END)
 
 
+def _build_vehicles(rows):
+    vehicles = []
+    for row in rows:
+        vehicle = PurchasedVehicleBuilder(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8])
+
+        vehicles.append(vehicle.values())
+    return vehicles
+
+
 def view_inventory():
     conn = create_connection("vehicle.db")
 
     with conn:
         rows = select_all_vehicles(conn)
-        print(rows)
-        open_table_window(m, rows)
+
+        open_inventory_table(m, _build_vehicles(rows))
 
 
 create_search_button = tkinter.Button(m, text='Search Catalog', width=25, command=search_catalog)
 create_search_button.grid(row=0, column=2)
 
-create_add_vehicle_button = tkinter.Button(m, text='Add Vehicle to Database', width=25, command=add_vehicle)
+create_add_vehicle_button = tkinter.Button(m, text='Add/Update Vehicle to Database', width=25, command=add_vehicle)
 create_add_vehicle_button.grid(row=4, column=2)
 open_window = tkinter.Button(m, text='View Vehicle Inventory', width=25, command=view_inventory)
-# open_window['command'] = partial(open_table_window, m, rows)
 open_window.grid(row=31, column=2)
 
 exit_button = tkinter.Button(m, text='Exit', width=25, command=m.destroy)
