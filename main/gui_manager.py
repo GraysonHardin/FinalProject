@@ -51,8 +51,6 @@ add_vehicle_year_input.grid(row=7, column=2)
 add_vehicle_mileage_input = tk.Entry(m, width=25)
 add_vehicle_mileage_input.grid(row=8, column=2)
 
-add_vehicle_price_input = tk.Entry(m, width=25)
-add_vehicle_price_input.grid(row=9, column=2)
 
 add_vehicle_color_input = tk.Entry(m, width=25)
 add_vehicle_color_input.grid(row=10, column=2)
@@ -90,7 +88,6 @@ def add_vehicle():
             add_vehicle_model_input.get(),
             add_vehicle_year_input.get(),
             add_vehicle_mileage_input.get(),
-            add_vehicle_price_input.get(),
             add_vehicle_color_input.get(),
             add_vehicle_paid_for_price.get(),
             add_vehicle_sold_for_price.get()
@@ -110,7 +107,6 @@ def add_vehicle():
         add_vehicle_model_input.delete(0, tk.END)
         add_vehicle_year_input.delete(0, tk.END)
         add_vehicle_mileage_input.delete(0, tk.END)
-        add_vehicle_price_input.delete(0, tk.END)
         add_vehicle_color_input.delete(0, tk.END)
         add_vehicle_paid_for_price.delete(0, tk.END)
         add_vehicle_sold_for_price.delete(0, tk.END)
@@ -120,7 +116,7 @@ def add_vehicle():
 def _build_vehicles(rows):
     vehicles = []
     for row in rows:
-        vehicle = PurchasedVehicleBuilder(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8])
+        vehicle = PurchasedVehicleBuilder(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7])
 
         vehicles.append(vehicle.values())
     return vehicles

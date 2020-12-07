@@ -23,7 +23,6 @@ def create_tables(database):
                                         model text NOT NULL,
                                         year text NOT NULL,
                                         mileage text NOT NULL,
-                                        price text NOT NULL,
                                         color text NOT NULL,
                                         paid_for_price NOT NULL,
                                         sold_for_price NULL
