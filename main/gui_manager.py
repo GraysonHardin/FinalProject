@@ -10,6 +10,7 @@ from tkinter import messagebox
 from main.database.connect_to_db import create_connection
 from main.database.create_tables import create_tables
 from main.database.query_database import select_all_vehicles
+from main.csv_manager.monthly_sales_report import monthly_sales_report
 from main.labels import draw_labels
 from main.view_catalog_table import open_catalog_table
 from main.view_inventory_table import open_inventory_table
@@ -64,6 +65,8 @@ add_vehicle_sold_for_price.grid(row=12, column=2)
 
 add_vehicle_id = tk.Entry(m, width=25)
 add_vehicle_id.grid(row=13, column=2)
+
+
 
 
 def search_catalog():
@@ -132,6 +135,15 @@ def view_inventory():
         open_inventory_table(m, _build_vehicles(rows))
 
 
+def write_to_csv():
+    conn = create_connection("vehicle.db")
+
+    with conn:
+        rows = select_all_vehicles(conn)
+
+        monthly_sales_report(_build_vehicles(rows))
+
+
 create_search_button = tkinter.Button(m, text='Search Catalog', width=25, command=search_catalog)
 create_search_button.grid(row=0, column=2)
 
@@ -139,6 +151,9 @@ create_add_vehicle_button = tkinter.Button(m, text='Add/Update Vehicle to Databa
 create_add_vehicle_button.grid(row=4, column=2)
 open_window = tkinter.Button(m, text='View Vehicle Inventory', width=25, command=view_inventory)
 open_window.grid(row=31, column=2)
+
+monthly_sales_report_button = tkinter.Button(m, text='View Monthly Sales Report', width=25, command=write_to_csv)
+monthly_sales_report_button.grid(row=29, column=2)
 
 exit_button = tkinter.Button(m, text='Exit', width=25, command=m.destroy)
 exit_button.grid(row=30, column=2)
