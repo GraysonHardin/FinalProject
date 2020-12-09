@@ -16,5 +16,6 @@ def open_inventory_table(m, rows):
     draw_header(new_window, 6, 'Color')
     draw_header(new_window, 7, 'Purchase Price')
     draw_header(new_window, 8, 'Sell Price')
+    draw_header(new_window, 9, 'Sold Date')
 
     draw_table(new_window, rows)

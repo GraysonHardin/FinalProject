@@ -1,5 +1,6 @@
 import tkinter
 import tkinter as tk
+from datetime import date
 
 from main.builders.purchased_vehicle_builder import PurchasedVehicleBuilder
 from main.database.create_rows import create_vehicle, update_vehicle
@@ -83,21 +84,32 @@ def add_vehicle():
     conn = create_connection("vehicle.db")
 
     with conn:
-        vehicle = (
-            add_vehicle_make_input.get(),
-            add_vehicle_model_input.get(),
-            add_vehicle_year_input.get(),
-            add_vehicle_mileage_input.get(),
-            add_vehicle_color_input.get(),
-            add_vehicle_paid_for_price.get(),
-            add_vehicle_sold_for_price.get()
-        )
-
         try:
+            sold_date = ''
+
+            if len(add_vehicle_sold_for_price.get()) > 0:
+                sold_date = date.today()
+
             if add_vehicle_id.get():
-                update_vehicle_tuple = (add_vehicle_sold_for_price.get(), add_vehicle_id.get())
+                update_vehicle_tuple = (
+                    add_vehicle_sold_for_price.get(),
+                    sold_date,
+                    add_vehicle_id.get()
+                )
+
                 update_vehicle(conn, update_vehicle_tuple)
             else:
+                vehicle = (
+                    add_vehicle_make_input.get(),
+                    add_vehicle_model_input.get(),
+                    add_vehicle_year_input.get(),
+                    add_vehicle_mileage_input.get(),
+                    add_vehicle_color_input.get(),
+                    add_vehicle_paid_for_price.get(),
+                    add_vehicle_sold_for_price.get(),
+                    sold_date
+                )
+
                 create_vehicle(conn, vehicle)
 
         except:
@@ -116,8 +128,7 @@ def add_vehicle():
 def _build_vehicles(rows):
     vehicles = []
     for row in rows:
-        vehicle = PurchasedVehicleBuilder(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7])
-
+        vehicle = PurchasedVehicleBuilder(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8])
         vehicles.append(vehicle.values())
     return vehicles
 
@@ -136,7 +147,6 @@ def write_to_csv():
 
     with conn:
         rows = select_all_vehicles(conn)
-
         monthly_sales_report(_build_vehicles(rows))
 
 

@@ -1,6 +1,5 @@
 from main.csv_manager.load_data import get_csv_data
 from main.csv_manager.vehicle_builder import VehicleBuilder
-from tkinter import messagebox
 
 
 def search(search_by_make, search_by_model, search_by_year):
