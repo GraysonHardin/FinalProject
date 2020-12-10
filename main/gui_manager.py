@@ -128,8 +128,20 @@ def add_vehicle():
 def _build_vehicles(rows):
     vehicles = []
     for row in rows:
-        vehicle = PurchasedVehicleBuilder(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8])
-        vehicles.append(vehicle.values())
+        vehicle = PurchasedVehicleBuilder().values(
+            id=row[0],
+            make=row[1],
+            model=row[2],
+            year=row[3],
+            mileage=row[4],
+            color=row[5],
+            purchase_price=row[6],
+            sell_price=row[7],
+            sold_date=row[8]
+        )
+
+        vehicles.append(vehicle)
+
     return vehicles
 
 
