@@ -5,7 +5,7 @@ from unittest.mock import patch, call, MagicMock
 from main.csv_manager.monthly_sales_report import monthly_sales_report
 
 
-class MyTestCase(unittest.TestCase):
+class TestSalesReport(unittest.TestCase):
     @patch('main.csv_manager.monthly_sales_report.csv_writer')
     def test_csv_header(self, mock_csv_writer):
         monthly_sales_report(rows=[])

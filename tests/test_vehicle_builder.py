@@ -1,12 +1,12 @@
 import unittest
 import datetime
 
-from main.builders.purchased_vehicle_builder import PurchasedVehicleBuilder
+from main.builders.vehicle_builder import VehicleBuilder
 
 
-class MyTestCase(unittest.TestCase):
+class TestVehicleBuilder(unittest.TestCase):
     def test_values(self):
-        builder = PurchasedVehicleBuilder().values(
+        builder = VehicleBuilder().values(
             id='1',
             make='Ford',
             model='Mustang',
@@ -33,7 +33,7 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(builder, expected)
 
     def test_values_given_no_date(self):
-        builder = PurchasedVehicleBuilder().values(
+        builder = VehicleBuilder().values(
             id='1',
             make='Ford',
             model='Mustang',

@@ -7,7 +7,7 @@ from main.csv_manager.csv_writer import csv_writer
 
 @patch('main.csv_manager.csv_writer.open')
 @patch('main.csv_manager.csv_writer.writer')
-class MyTestCase(unittest.TestCase):
+class TestCVSWriter(unittest.TestCase):
     def test_csv_writer(self, mock_writer, mock_open):
         expected_writer = 'write'
         expected_opener = 'open'

@@ -1,7 +1,7 @@
 import datetime
 
 
-class PurchasedVehicleBuilder:
+class VehicleBuilder:
     def values(self, **kwargs):
         vehicle = {}
         for key, value in kwargs.items():

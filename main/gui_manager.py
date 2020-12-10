@@ -2,7 +2,7 @@ import tkinter
 import tkinter as tk
 from datetime import date
 
-from main.builders.purchased_vehicle_builder import PurchasedVehicleBuilder
+from main.builders.vehicle_builder import VehicleBuilder
 from main.database.create_rows import create_vehicle, update_vehicle
 from main.csv_manager.catalog import search
 from tkinter import messagebox
@@ -125,7 +125,7 @@ def add_vehicle():
 def _build_vehicles(rows):
     vehicles = []
     for row in rows:
-        vehicle = PurchasedVehicleBuilder().values(
+        vehicle = VehicleBuilder().values(
             id=row[0],
             make=row[1],
             model=row[2],
