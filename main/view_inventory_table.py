@@ -5,8 +5,8 @@ from main.table_helpers import draw_table, draw_header
 
 def open_inventory_table(m, rows):
     new_window = tk.Toplevel(m)
-    new_window.title("Vehicle Inventory")
-    new_window.geometry("1920x1080")
+    new_window.title('Vehicle Inventory')
+    new_window.geometry('1920x1080')
 
     draw_header(new_window, 1, 'ID')
     draw_header(new_window, 2, 'Make')

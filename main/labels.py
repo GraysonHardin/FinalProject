@@ -1,7 +1,7 @@
 from tkinter import Label
 
 
-def draw_labels(m):
+def draw_labels():
     display_make_input_message = Label(text='Enter vehicle make')
     display_model_input_message = Label(text='Enter vehicle model')
     display_year_input_message = Label(text='Enter vehicle year')

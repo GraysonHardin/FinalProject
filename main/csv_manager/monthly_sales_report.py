@@ -15,8 +15,10 @@ def monthly_sales_report(rows):
         date_range = calendar.monthrange(year, month)
         start = datetime.date(year, month, date_range[0])
         end = datetime.date(year, month, date_range[1])
+
         if isinstance(value['sold_date'], str):
             return False
+
         return start <= value['sold_date'] <= end
 
     filtered_rows = list(filter(is_within_date_range, rows))

@@ -8,4 +8,4 @@ def select_all_vehicles(conn):
 
     rows = cur.fetchall()
 
-    return rows  # return the rows
+    return rows

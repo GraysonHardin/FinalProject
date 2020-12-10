@@ -5,8 +5,8 @@ from main.table_helpers import draw_table, draw_header
 
 def open_catalog_table(m, rows):
     new_window = tk.Toplevel(m)
-    new_window.title("Vehicle Catalog")
-    new_window.geometry("900x900")
+    new_window.title('Vehicle Catalog')
+    new_window.geometry('900x900')
 
     draw_header(new_window, 1, 'Make')
     draw_header(new_window, 2, 'Model')
