@@ -1,5 +1,5 @@
 from main.csv_manager.load_data import get_csv_data
-from main.csv_manager.vehicle_builder import VehicleBuilder
+from main.builders.purchased_vehicle_builder import PurchasedVehicleBuilder
 
 
 def search(search_by_make, search_by_model, search_by_year):
@@ -27,7 +27,14 @@ def _handle_invalid_search_terms(search_by_make, search_by_model, search_by_year
 def _build_vehicles(filtered_rows):
     vehicles = []
     for row in filtered_rows:
-        vehicle = VehicleBuilder(row[0], row[1], row[2], row[3], row[4], row[5])
+        vehicle = PurchasedVehicleBuilder().values(
+            make=row[0],
+            model=row[1],
+            year=row[2],
+            mileage=row[3],
+            price=row[4],
+            color=row[5]
+        )
 
-        vehicles.append(vehicle.values())
+        vehicles.append(vehicle)
     return vehicles

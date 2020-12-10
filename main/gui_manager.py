@@ -5,7 +5,6 @@ from datetime import date
 from main.builders.purchased_vehicle_builder import PurchasedVehicleBuilder
 from main.database.create_rows import create_vehicle, update_vehicle
 from main.csv_manager.catalog import search
-from main.csv_manager.vehicle_builder import VehicleBuilder
 from tkinter import messagebox
 
 from main.database.connect_to_db import create_connection
@@ -26,8 +25,6 @@ def handle_database_creation():
     create_connection("vehicle.db")
     create_tables("vehicle.db")
 
-
-catalog_searcher = VehicleBuilder
 
 # Lines 42-49 are for search_catalog values
 make_input = tk.Entry(m, width=25)
