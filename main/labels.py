@@ -1,6 +1,7 @@
 from tkinter import Label
 
 
+# Extracted the labels (text that appears next to search fields) to a separate file to help keep gui_manager clean.
 def draw_labels():
     display_make_input_message = Label(text='Enter vehicle make')
     display_model_input_message = Label(text='Enter vehicle model')

@@ -1,7 +1,7 @@
 from main.csv_manager.load_data import get_csv_data
 from main.builders.vehicle_builder import VehicleBuilder
 
-
+# Searches by the appropriate values
 def search(search_by_make, search_by_model, search_by_year):
     _handle_invalid_search_terms(search_by_make, search_by_model, search_by_year)
 
@@ -19,6 +19,7 @@ def _filter_rows(make, model, year):
     return list(filter(exists_in_row, csv_data))
 
 
+# This is built for input validation
 def _handle_invalid_search_terms(search_by_make, search_by_model, search_by_year):
     if not search_by_make or not search_by_model or not search_by_year:
         raise ValueError('Please provide make, model, and year.')

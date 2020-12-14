@@ -3,10 +3,11 @@ import tkinter as tk
 from main.table_helpers import draw_table, draw_header
 
 
+# This handles the catalog table (also known as the market value searcher)
 def open_catalog_table(m, rows):
     new_window = tk.Toplevel(m)
-    new_window.title('Vehicle Catalog')
-    new_window.geometry('900x900')
+    new_window.title('Vehicle Market Value')
+    new_window.geometry('1200x1000')
 
     draw_header(new_window, 1, 'Make')
     draw_header(new_window, 2, 'Model')

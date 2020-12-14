@@ -1,6 +1,7 @@
 import tkinter
 
 
+# This is a generic table header so that it can be utilized several times for different situations
 def draw_table(new_window, rows):
     for i in range(len(rows)):
         column = 1
@@ -13,6 +14,7 @@ def draw_table(new_window, rows):
             e['state'] = tkinter.DISABLED
 
 
+# Generic header built for re-usability
 def draw_header(new_window, index, value):
     header = tkinter.Entry(new_window, width=20, fg='black', font=('Arial', 12, 'bold'))
     header.grid(row=0, column=index)

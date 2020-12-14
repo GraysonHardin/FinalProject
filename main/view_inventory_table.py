@@ -3,6 +3,7 @@ import tkinter as tk
 from main.table_helpers import draw_table, draw_header
 
 
+# This draws the pop-up window for Vehicle Inventory. Imported the above files to help with duplicate code.
 def open_inventory_table(m, rows):
     new_window = tk.Toplevel(m)
     new_window.title('Vehicle Inventory')
